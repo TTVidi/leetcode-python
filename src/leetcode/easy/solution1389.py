@@ -13,9 +13,25 @@ from typing import List
 
 class Solution:
     def createTargetArray(self, nums: List[int], index: List[int]) -> List[int]:
-        return None
+        li = []
+        for i, v in enumerate(index):
+            if not li:
+                li.append(nums[i])
+            else:
+                pre = li[:v]
+                suf = li[v:]
+                pre.append(nums[i])
+                pre.extend(suf)
+                li = pre
+        return li
+
+    def createTargetArray2(self, nums: List[int], index: List[int]) -> List[int]:
+        li = []
+        for i in range(len(index)):
+            li.insert(index[i], nums[i])
+        return li
 
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.createTargetArray())
+    print(s.createTargetArray2([0, 1, 2, 3, 4], [0, 1, 2, 2, 1]))
