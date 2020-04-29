@@ -5,14 +5,21 @@
 # Return a lucky integer in the array. If there are multiple lucky integers return the largest of them. If there is
 # no lucky integer return -1.
 #
+import collections
 from typing import List
 
 
 class Solution:
     def findLucky(self, arr: List[int]) -> int:
-        return 1
+        rs = -1
+        _dict = collections.Counter(arr)
+
+        for k, v in _dict.items():
+            if k == v:
+                rs = max(rs, k)
+        return rs
 
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.findLucky([2, 2, 3, 4]))
+    print(s.findLucky([2, 2, 2, 3, 3]))
