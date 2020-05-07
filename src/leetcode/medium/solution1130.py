@@ -8,6 +8,7 @@
 # possible binary trees considered, return the smallest possible sum of the values of each non-leaf node.  It is
 # guaranteed this sum fits into a 32-bit integer.
 #
+import sys
 from typing import List
 
 
