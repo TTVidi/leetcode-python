@@ -18,9 +18,52 @@ class TreeNode:
 
 class Solution:
     def rob(self, root: TreeNode) -> int:
-        return 1
+        d = {}
+
+        def helper(root: TreeNode, parentUsed: bool) -> int:
+            if not root: return 0
+            if (root, parentUsed) in d:
+                return d[(root, parentUsed)]
+            res = 0
+            if parentUsed:
+                res = helper(root.left, False) + helper(root.right, False)
+            else:
+                res = max(root.val + helper(root.left, True) + helper(root.right, True),
+                          helper(root.left, False) + helper(root.right, False))
+            d[(root, parentUsed)] = res
+            return res
+
+        return helper(root, False)
+
+    def rob1(self, root: TreeNode) -> int:
+        _contains_dict = {}
+        _not_contains_dict = {}
+
+        def search(node: TreeNode, contains: bool) -> int:
+            if node:
+                if not node.left and not node.right:
+                    _contains_dict[node] = node.val
+                    _not_contains_dict[node] = node.val
+                    return node.val
+                if node in _contains_dict:
+                    return _contains_dict[node]
+                if node in _not_contains_dict:
+                    return _not_contains_dict[node]
+                if contains:
+                    _contains_dict[node] = search(node.left, False) + search(node.right, False) + node.val
+                    return _contains_dict[node]
+                else:
+                    _not_contains_dict[node] = max(search(node.left, True) + search(node.right, True),
+                                                   search(node.left, False) + search(node.right, False) + node.val)
+                    return _not_contains_dict[node]
+            return 0
+
+        print(search(root, False))
+        print(search(root, True))
+        return max(search(root, False), search(root, True))
 
 
 if __name__ == '__main__':
     s = Solution()
+
     print(s.rob())
