@@ -19,8 +19,20 @@ class TreeNode:
 
 
 class Solution:
-    def pathSum(self, root: TreeNode, sum: int) -> int:
-        return 1
+    def pathSum(self, root, sum):
+        if root:
+            return self.dfs(root, sum) + self.pathSum(root.left, sum) + self.pathSum(root.right, sum)
+        return 0
+
+    def dfs(self, root, sum):
+        res = 0
+        if not root: return res
+        sum -= root.val
+        if sum == 0:
+            res += 1
+        res += self.dfs(root.left, sum)
+        res += self.dfs(root.right, sum)
+        return res
 
 
 if __name__ == '__main__':

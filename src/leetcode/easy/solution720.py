@@ -14,43 +14,29 @@ from typing import List
 
 
 class Solution:
-    def longestWord1(self, words: List[str]) -> str:
+    def longestWord(self, a: List[str]) -> str:
+
         def trie():
             return defaultdict(trie)
 
         root = trie()
         root["#"] = True
 
-        for x in words:
+        for x in a:
             tail = reduce(getitem, x, root)
             tail["#"] = True
 
         best = ""
 
-        for x in words:
+        for x in a:
             path = accumulate(x, getitem, initial=root)
             if all(map(itemgetter("#"), path)):
                 best = min(best, x, key=lambda x: (-len(x), x))
 
         return best
 
-    def longestWord(self, words: List[str]) -> str:
-        _set = set(words)
-        r = ""
-        for word in words:
-            if len(word) >= len(r):
-                t = word[:-1]
-                if t in _set:
-                    if len(word) == len(r):
-                        if word < r:
-                            r = word
-                    else:
-                        r = word
-
-        return r
-
 
 if __name__ == '__main__':
     s = Solution()
     print(s.longestWord1(["yo", "ew", "fc", "zrc", "yodn", "fcm", "qm", "qmo", "fcmz", "z", "ewq", "yod", "ewqz", "y"]))
-    print("yodn"<"ewqz")
+    print("yodn" < "ewqz")

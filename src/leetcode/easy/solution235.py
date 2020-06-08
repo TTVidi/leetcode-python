@@ -9,6 +9,9 @@
 #
 
 # Definition for a binary tree node.
+from typing import List
+
+
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -18,22 +21,33 @@ class TreeNode:
 
 class Solution:
     def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
-        _set = set()
-
-        def find_common_parent(node: TreeNode) -> TreeNode:
+        def find_parent(path: List[TreeNode], node: TreeNode, target: TreeNode) -> List[TreeNode]:
             if node:
-                left = None
-                right = None
-                if node.left:
-                    left = find_common_parent(node.left)
-                if node.right:
-                    right = find_common_parent(node.right)
-                if not left and not right:
-                    _set.add(node.val)
-                if _set.__contains__(p.val) and _set.__contains__(q.val):
-                    return node
+                if node.val == target.val:
+                    path.append(node)
+                    return path
+                path.append(node)
+                if target.val > node.val:
+                    right = find_parent(path, node.right, target)
+                    if right:
+                        return right
+                else:
+                    left = find_parent(path, node.left, target)
+                    if left:
+                        return left
+                path.pop(-1)
+            return None
 
-        return find_common_parent(root)
+        l1 = find_parent([], root, p)
+        l2 = find_parent([], root, q)
+        length = min(len(l1), len(l2))
+        rs = None
+        for i in range(length):
+            if l1[i] == l2[i]:
+                rs = l1[i]
+            else:
+                break
+        return rs
 
 
 if __name__ == '__main__':
