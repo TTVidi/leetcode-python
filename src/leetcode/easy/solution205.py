@@ -8,11 +8,35 @@
 # two characters may map to the same character but a character may map to itself.
 #
 
+
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        return True
+        if len(s) == len(t):
+            dt = {}
+            ds = {}
+            ss = ""
+            st = ""
+            for i in range(len(s)):
+                sc = s[i]
+                tc = t[i]
+                if sc in dt:
+                    if dt[sc] != tc:
+                        return False
+                else:
+                    dt[sc] = tc
+
+                if tc in ds:
+                    if ds[tc] != sc:
+                        return False
+                else:
+                    ds[tc] = sc
+
+                st += tc
+                ss += sc
+            return st == t and ss == s
+        return False
 
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.isIsomorphic())
+    print(s.isIsomorphic("egg", "add"))
