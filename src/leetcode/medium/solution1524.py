@@ -46,7 +46,19 @@ from typing import List
 
 class Solution:
     def numOfSubarrays(self, arr: List[int]) -> int:
-        return 1
+        odd = 0
+        even = 0
+        res = 0
+
+        for num in arr:
+            if num % 2 == 1:
+                temp = odd
+                odd = even + 1
+                even = temp
+            else:
+                even += 1
+            res += odd
+        return res % (10 ** 9 + 7)
 
 
 if __name__ == '__main__':
