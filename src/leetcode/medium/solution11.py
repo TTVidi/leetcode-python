@@ -13,6 +13,7 @@
 # The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue
 # section) the container can contain is 49.
 #
+import random
 from typing import List
 
 
@@ -43,5 +44,28 @@ class Solution:
 
 
 if __name__ == '__main__':
-    s = Solution()
-    print(s.maxArea2([1, 8, 6, 2, 5, 4, 8, 3, 7]))
+    so = Solution()
+    # print(s.maxArea2([1, 8, 6, 2, 5, 4, 8, 3, 7]))
+
+    case = "C://Users//tangtao02//Desktop//算法/3/case1.txt"
+    result = "C://Users//tangtao02//Desktop//算法/3/result1.txt"
+    c = open(case, 'w+')
+    r = open(result, 'w+')
+
+    cr = []
+    rr = []
+
+    for i in range(30):
+        j = random.randint(1, 10000)
+        li = []
+
+        for k in range(j):
+            li.append(random.randint(0, 1000))
+
+        cr.append(str(li) + "\n")
+        rr.append(str(so.maxArea2(li)) + "\n")
+
+    c.writelines(cr)
+    r.writelines(rr)
+    c.close()
+    r.close()

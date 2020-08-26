@@ -6,6 +6,9 @@
 # Left parenthesis '(' must go before the corresponding right parenthesis ')'.
 # '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string.
 # An empty string is also valid.
+import random
+
+
 class Solution:
     def checkValidString(self, s: str) -> bool:
         r = []
@@ -34,5 +37,31 @@ class Solution:
 
 
 if __name__ == '__main__':
-    s = Solution()
-    print(s.checkValidString("((*)(*()(())())())()()((()())((()))(*"))
+    so = Solution()
+    # print(s.checkValidString("((*)(*()(())())())()()((()())((()))(*"))
+    case = "C://Users//tangtao02//Desktop//算法/1/case.txt"
+    result = "C://Users//tangtao02//Desktop//算法/1/result.txt"
+    c = open(case, 'w+')
+    r = open(result, 'w+')
+
+    cr = []
+    rr = []
+
+    for i in range(100):
+        j = random.randint(1, 100)
+        s = ""
+        for k in range(j):
+            f = random.randint(1, 3)
+            if f == 1:
+                s += "("
+            elif f == 2:
+                s += ")"
+            else:
+                s += "*"
+        cr.append(s+"\n")
+        rr.append(str(so.checkValidString(s))+"\n")
+
+    c.writelines(cr)
+    r.writelines(rr)
+    c.close()
+    r.close()
