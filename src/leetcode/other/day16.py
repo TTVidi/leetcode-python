@@ -39,6 +39,11 @@ class Solution:
 if __name__ == '__main__':
     so = Solution()
     # print(s.checkValidString("((*)(*()(())())())()()((()())((()))(*"))
+    # (())*)
+    # (()))*
+
+
+
     case = "C://Users//tangtao02//Desktop//算法/1/case.txt"
     result = "C://Users//tangtao02//Desktop//算法/1/result.txt"
     c = open(case, 'w+')
